@@ -1,5 +1,9 @@
 @extends('layout/auth')
 
+@section('title')
+    Menux - Login
+@endsection
+
 
 @section('container')
 

@@ -53,11 +53,12 @@ class AuthController extends Controller
 
             $credentials = $request->only('email', 'password');
 
-            if (!Auth::attempt($credentials)) {
+            if (!Auth::attempt($credentials))
+            {
                 return redirect()->back()->withErrors('E-mail / Senha incorreto')->withInput();
             }
-            
-            return redirect()->intended('dashboard');
+
+            return redirect('dashboard');
 
         }
         catch (\Exception $e)
@@ -94,7 +95,7 @@ class AuthController extends Controller
 
             Auth::login($user, true);
 
-            return redirect('/home');
+            return redirect('/dashboard');
 
         }
         catch (\Exception $e)

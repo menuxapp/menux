@@ -1,5 +1,8 @@
 @extends('layout/auth')
 
+@section('title')
+    Menux - Cadastrar
+@endsection
 
 @section('container')
 

@@ -39,6 +39,11 @@ Route::get('/cadastrar', function () {
     return view('register');
 });
 
+Route::get('/sair', function () {
+    Auth::logout();
+    return redirect('/entrar');
+});
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', 'DashboardController@home');

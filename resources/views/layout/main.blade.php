@@ -1,37 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>
-        @yield('title')
-    </title>
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+    <link rel="icon" href="{{ asset('assets/logo2.png') }}" />
 
-    @yield('css')
+    <title>Menux - Dashboard</title>
+
+      <!-- Bootstrap core CSS -->
+    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('/css/global.css') }}" rel="stylesheet">
+
 </head>
+
 <body>
 
     @php
         $user = Auth::user();
     @endphp
 
+  <div class="d-flex" id="wrapper">
 
-    <div class="container text-center">
-
-        @yield('container')
-
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">
+          <img src="{{ asset('/assets/logo.png') }}" alt="MenuX" width="130">
+      </div>
+      <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            Dashboard
+        </a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">
+            <i class="fas fa-th"></i>
+            Produtos
+        </a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">
+            <i class="nav-icon fas fa-th"></i>
+            Categorias
+        </a>
+      </div>
     </div>
+    <!-- /#sidebar-wrapper -->
 
-    <script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
-    
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    
-    @yield('script')
-    
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <a class="nav-link" id="menu-toggle" href="javascript:;" role="button">
+                <i class="fas fa-bars"></i>
+            </a>
+
+            <div class="dropdown">
+                <button class="dropdown-toggle user" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span>{{ $user->name }}</span>
+                    <img src="{{ asset('assets/user.jpg') }}" alt="Usuário">
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{ url('/sair') }}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </a>
+                </div>
+              </div>
+        </nav>
+
+        <div class="container-fluid">
+
+            @yield('container')
+
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ asset('js/jquery.min.js') }}"></script>
+  
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+  <script src="{{ asset('/js/fontawesome.min.js') }}" rel="stylesheet"></script>
+  
+  <!-- Menu Toggle Script -->
+  <script>
+
+    window.onload = function() {
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+    }
+  </script>
+
 </body>
 </html>

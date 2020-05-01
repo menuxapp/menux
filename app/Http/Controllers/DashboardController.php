@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
             $data = array();
 
-            return view('dashboard');
+            return view('request');
             
         }
         catch (\Exception $e)
