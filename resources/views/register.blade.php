@@ -6,18 +6,42 @@
 
 @section('container')
 
-    {{ Form::open(array('url' => '/cadastrar', 'method' => 'post')) }}
+    <div class="card card-info w-100 h-100 text-center">
+        {{ Form::open(array('url' => '/cadastrar', 'method' => 'post')) }}
 
-        {{ Form::text('name', null, array('class' => 'form-control', 'placeholder' => 'Nome Completo')) }}
+            <div class="card-header text-center dark-content">
+                <img src="{{ asset('assets/logo.png') }}" alt="MenuX" width="180">
+            </div>
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Name" name="name">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="E-mail" name="email">
+                </div>
 
-        {{ Form::text('email', null, array('class' => 'form-control', 'placeholder' => 'E-mail')) }}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="password" name="password">
+                </div>
 
-        {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Senha')) }}
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
 
-        {{ Form::submit('Entrar', array('class' => 'btn btn-primary')) }}
+        {{ Form::close() }}
 
-    {{ Form::close() }}
-
-    <span>Já possui uma conta? <a href="{{ url('/entrar') }}">Clique aqui!</a></span>
+        <span>Já possui uma conta? <a href="{{ url('/entrar') }}">Clique aqui!</a></span>
+    </div>
     
 @endsection

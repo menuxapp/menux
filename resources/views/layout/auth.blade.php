@@ -28,9 +28,12 @@
 
     </div>
 
-    <script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
 
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+    <script src="{{ asset('/js/fontawesome.min.js') }}" rel="stylesheet"></script>
+
 
     @yield('script')
     
