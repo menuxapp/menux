@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+header {
+    /* display: flex;
+    align-items: center; */
+
+    width: 100vw;
+    height: 60px;
+
+    border-bottom: 1px solid #DDD;
+}
+
 input {
     margin-top: 15px;
 }

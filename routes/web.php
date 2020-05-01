@@ -41,11 +41,5 @@ Route::get('/cadastrar', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function() {
-        
-        $user = Auth::user();
-
-        return $user;
-
-    });
+    Route::get('/dashboard', 'DashboardController@home');
 });
