@@ -10,13 +10,16 @@ class DashboardController extends Controller
 {
     //
 
-    function home()
+    function dashboard()
     {
         try
         {
             $user = Auth::user();
     
-            
+            if(!$user->Store)
+            {
+                return redirect('dashboard/estabelecimento');
+            }
 
             $data = array();
 

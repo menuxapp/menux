@@ -21,6 +21,16 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
 
+            $table->unsignedBigInteger('store_id')
+                    ->nullable();
+
+            $table->foreign('store_id')
+                        ->references('id')
+                        ->on('stores')
+                        ->onDelete('cascade');
+
+            $table->softDeletes('deleted_at', 0);
+
             $table->timestamps();
         });
     }

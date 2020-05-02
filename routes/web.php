@@ -46,5 +46,11 @@ Route::get('/sair', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', 'DashboardController@home');
+    Route::get('/dashboard', 'DashboardController@dashboard');
+
+    Route::get('/dashboard/estabelecimento', 'StoreController@show');
+
+    Route::post('/dashboard/estabelecimento', 'StoreController@store');
+
+    Route::put('/dashboard/estabelecimento/{id}', 'StoreController@update');
 });

@@ -26,27 +26,33 @@
         $user = Auth::user();
     @endphp
 
-  <div class="d-flex" id="wrapper">
+<div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">
-          <img src="{{ asset('/assets/logo.png') }}" alt="MenuX" width="130">
-      </div>
-      <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            Dashboard
-        </a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">
-            <i class="fas fa-th"></i>
-            Produtos
-        </a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">
-            <i class="nav-icon fas fa-th"></i>
-            Categorias
-        </a>
-      </div>
+		<div class="sidebar-heading">
+			<img src="{{ asset('/assets/logo.png') }}" alt="MenuX" width="130">
+		</div>
+		<div class="list-group list-group-flush">
+			@if ($user->Store)
+				<a href="{{ url('dashboard') }}" class="list-group-item list-group-item-action bg-light">
+					<i class="nav-icon fas fa-tachometer-alt"></i>
+					Dashboard
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">
+					<i class="fas fa-th"></i>
+					Produtos
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">
+					<i class="nav-icon fas fa-th"></i>
+					Categorias
+				</a>
+			@endif
+			<a href="{{ url('dashboard/estabelecimento') }}" class="list-group-item list-group-item-action bg-light">
+				<i class="fas fa-store-alt"></i>
+				Estabelecimento
+			</a>
+		</div>
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -80,26 +86,28 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
+</div>
+<!-- /#wrapper -->
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{{ asset('js/jquery.min.js') }}"></script>
-  
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="{{ asset('js/jquery.min.js') }}"></script>
 
-  <script src="{{ asset('/js/fontawesome.min.js') }}" rel="stylesheet"></script>
-  
-  <!-- Menu Toggle Script -->
-  <script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-    window.onload = function() {
-        $("#menu-toggle").click(function(e) {
-          e.preventDefault();
-          $("#wrapper").toggleClass("toggled");
-        });
-    }
-  </script>
+<script src="{{ asset('/js/fontawesome.min.js') }}" rel="stylesheet"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+
+window.onload = function() {
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+}
+</script>
+
+@yield('script')
 
 </body>
 </html>
