@@ -125,6 +125,10 @@ $(document).ready(function() {
     $('#form').submit(function(e) {
         e.preventDefault();
 
+        $(".is-invalid").map(function() {
+			$(this).removeClass('is-invalid');
+		});
+
         $.ajax({
             method: "POST",
             url: `${window.location.href}`,
@@ -136,8 +140,6 @@ $(document).ready(function() {
         }).fail(function(err) {
             const errors = err.responseJSON;
 
-            console.log(errors);
-
             for(error in errors) {
                 const input = $(`input[name="${error}"]`);
 
@@ -146,8 +148,7 @@ $(document).ready(function() {
                 }
             }
         });
-
-    })
+    });
 });
 
 function consultCEP(cep) {

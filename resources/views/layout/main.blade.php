@@ -8,11 +8,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <link rel="icon" href="{{ asset('assets/logo2.png') }}" />
 
     <title>Menux - Dashboard</title>
 
-      <!-- Bootstrap core CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -42,8 +46,8 @@
 				<a href="#" class="list-group-item list-group-item-action bg-light">
 					<i class="fas fa-th"></i>
 					Produtos
-				</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">
+                </a>
+				<a href="{{ url('/dashboard/categorias') }}" class="list-group-item list-group-item-action bg-light">
 					<i class="nav-icon fas fa-th"></i>
 					Categorias
 				</a>
@@ -99,12 +103,30 @@
 <!-- Menu Toggle Script -->
 <script>
 
+const URL = "{{ url('') }}";
+
 window.onload = function() {
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
 		$("#wrapper").toggleClass("toggled");
 	});
+
+    startLoading();
 }
+
+function startLoading() {
+
+    const spinnersArray = ['text-muted', 'text-primary', 'text-success', 'text-info', 'text-warning', 'text-danger', 'text-secondary', 'text-dark', 'text-light'];
+
+    const loadingContainer = $('#loading');
+
+    spinnersArray.forEach(spinner => {
+        const spinnerElement = jQuery('<div />', {
+            class: `spinner-grow ${spinner}`
+        }).appendTo(loadingContainer);
+    });
+}
+
 </script>
 
 @yield('script')

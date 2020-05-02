@@ -53,4 +53,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/estabelecimento', 'StoreController@store');
 
     Route::put('/dashboard/estabelecimento/{id}', 'StoreController@update');
+
+    Route::get('/dashboard/categorias', function() {
+        return view('productCategories');
+    });
+
+    Route::get('/categorias', 'ProductCategoriesController@index');
+
+    Route::post('/categorias', 'ProductCategoriesController@store');
+
+    Route::put('/categorias/{id}', 'ProductCategoriesController@update');;
+
 });

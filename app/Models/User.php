@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Store', 'id', 'store_id');
     }
+
+    public function ProductCategories()
+    {
+        return $this->hasManyThrough('App\Models\ProductCategories', 'App\Models\Store', 'id', 'store_id', 'id');
+    }
 }
