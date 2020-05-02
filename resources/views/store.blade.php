@@ -3,10 +3,10 @@
 @section('container')
 
 @php
-    $urlForm = '/estabelecimento';
+    $urlForm = url('/estabelecimento');
     $method = 'POST';
 
-    if($store->exists())
+    if($store->id)
     {
         $urlForm .= "/$store->id";
         $method = 'PUT';
@@ -37,7 +37,7 @@
             <!-- general form elements disabled -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Endereço</h3>
+                    <h3 class="card-title">Informações</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -115,7 +115,6 @@ $(document).ready(function() {
         const cep = $(this).val();
 
         if(cep.length >= 8) {
-            console.log(cep)
             consultCEP(cep);
         }
 

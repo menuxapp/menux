@@ -22,12 +22,14 @@ class AuthController extends Controller
      */
     protected $messages = array('required' => 'Campo :attribute obrigatório.',
                                 'exists' => 'O :attribute não existe.',
-                                'unique' => 'O :attribte já está sendo utilizado.');
+                                'unique' => 'O :attribute já está sendo utilizado.');
 
     /**
      * @var $messages
      */
-    protected $attributes = array();
+    protected $attributes = array('name' => 'nome',
+                                    'email' => 'e-mail',
+                                    'password' => 'senha');
 
     /**
      * user login

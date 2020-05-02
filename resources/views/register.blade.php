@@ -77,20 +77,22 @@ $(document).ready(function() {
         }).fail(function(err) {
 
 			if(err.status == 401) {
-				showMessage('Preencha todos os campo', 'warning');
+                const errors = err.responseJSON;
+                            
+                for(error in errors) {
+
+                    const input = $(`input[name="${error}"]`);
+    
+                    if(input) {
+                        input.addClass('is-invalid');
+
+                        showMessage(errors[error], 'error');
+                    }
+                }
 			} else {
 				showMessage('Falha ao se cadastrar, tente novamente mais tarde!', 'error');
 			}
 
-            const errors = err.responseJSON;
-			            
-            for(error in errors) {
-                const input = $(`input[name="${error}"]`);
-
-                if(input) {
-                    input.addClass('is-invalid');
-                }
-            }
         });
     });
 
