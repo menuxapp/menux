@@ -107,7 +107,13 @@ $(document).ready(function() {
 			showMessage('Categoria salva com sucesso!');
 
         }).fail(function(err) {		
-            const errors = err.responseJSON;
+			const errors = err.responseJSON;
+			
+			if(err.status == 401) {
+				showMessage('Falha ao salvar produto, verifique as informações, e tente novamente.', 'warning');
+			} else {
+				showMessage('Falha ao salvar produto, tente novamente mais tarde!', 'error');
+			}
 			            
             for(error in errors) {
                 const input = $(`input[name="${error}"]`);

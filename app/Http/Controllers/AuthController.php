@@ -48,14 +48,14 @@ class AuthController extends Controller
 
             if($validator->fails())
             {
-                return redirect()->back()->withErrors($validator->errors())->withInput();
+                return response()->json($validator->errors(), 401);
             }
 
             $credentials = $request->only('email', 'password');
 
             if (!Auth::attempt($credentials))
             {
-                return redirect()->back()->withErrors('E-mail / Senha incorreto')->withInput();
+                return response()->json('Email / Senha incorreto', 409);
             }
 
             return redirect('dashboard');
@@ -65,7 +65,7 @@ class AuthController extends Controller
         {
             Menux::logError(__FILE__, __LINE__, __METHOD__, $e);
 
-            return redirect()->back()->withInput();
+            return response()->json('ERROR', 500);
             
         }
     }
@@ -88,7 +88,7 @@ class AuthController extends Controller
 
             if($validator->fails())
             {
-                return redirect()->back()->withErrors($validator)->withInput();
+                return response()->json($validator->errors(), 401);
             }
 
             $user = User::create($request->except('password') + ['password' => app('hash')->make($request->input('password'))]);
@@ -102,8 +102,7 @@ class AuthController extends Controller
         {
             Menux::logError(__FILE__, __LINE__, __METHOD__, $e);
 
-            return redirect()->back()->withInput();
-            
+            return response()->json('ERROR', 500);
         }
     }
 }
