@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use File;
+use Image;
 use Auth;
 use App\Menux;
 use Validator;
@@ -89,9 +90,14 @@ class ProductCategoriesController extends Controller
 
             $file = $request->file('image');
             
+            $img = Image::make($file->path());
+            
             $filename = 'CAT_' . time() . "." . $file->getClientOriginalExtension();
             $destinationPath = 'upload/categories';
-            $file->move($destinationPath ,$filename);
+            
+            $img->resize(380, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save("$destinationPath/$filename");
 
             $category = ProductCategories::Create(
                 $request->except('_token', '_method', 'image') + ['store_id' => $user->Store->id, 'image' => "$destinationPath/$filename"]
@@ -164,13 +170,18 @@ class ProductCategoriesController extends Controller
             }
     
             $file = $request->file('image');
+
+            $img = Image::make($file->path());
             
             $filename = 'CAT_' . time() . "." . $file->getClientOriginalExtension();
             $destinationPath = 'upload/categories';
-            $file->move($destinationPath ,$filename);
+            
+            $img->resize(380, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save("$destinationPath/$filename");
 
             $categoryImage = "$destinationPath/$filename";
-        }  
+        }
         
         
         $category = ProductCategories::updateOrCreate(

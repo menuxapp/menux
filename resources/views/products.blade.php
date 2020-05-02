@@ -3,38 +3,66 @@
 @section('container')
 
 <!-- Modal -->
-<div class="modal fade" id="category" tabindex="-1" role="dialog" aria-labelledby="categoryLabel" aria-hidden="true">
+<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="productLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="categoryModalTitle">Cadastrar Categoria</h5>
+				<h5 class="modal-title" id="productModalTitle">Cadastrar Categoria</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				{{ Form::open(array('url' => 'categorias', 'method' => 'POST', 'id' => 'form', 'enctype'=> 'multipart/form-data')) }}
+				{{ Form::open(array('url' => 'produtos', 'method' => 'POST', 'id' => 'form', 'enctype'=> 'multipart/form-data')) }}
 				<img class="image-item" alt="">
 				<div class="form-group">
-					<label for="image">Foto da categoria</label>
+					<label for="image">Foto da produto</label>
 					<div class="input-group">
 						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="categoryImage" name="image">
+							<input type="file" class="custom-file-input" id="productImage" name="image">
 							<label class="custom-file-label" for="image">Escolher arquivo</label>
 						</div>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="">Descrição da categoria</label>
-					<input type="text" name="description" id="nameCategory" class="form-control" placeholder="Descrição (Ex: Lanches) ">
+					<label for="">Nome do produto</label>
+					<input type="text" name="name" id="nameproduct" class="form-control" placeholder="Descrição (Ex: Batata frita) ">
 				</div>
 
 				<div class="form-group">
-					<label>Informações da categoria</label>
-					<textarea id="information" name="information" class="form-control" rows="3" placeholder="Informações ..."></textarea>
-				</div>
-			</div>
+					<label>Descrição do produto</label>
+					<textarea id="description" name="description" class="form-control" rows="3" placeholder="Descrição ..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Categoria do produto</label>
+                    <select class="custom-select" name="product_category">
+                        <option value="">Selecione ...</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->description }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <div class="d-flex align-items-center mb-2">
+                    <div class="w-50 mr-3 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input type="text" class="form-control money" name="value">
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <div class="form-group mb-0">
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status">
+                              <label class="custom-control-label" for="customSwitch1">Produto visivel?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				<button type="submit" class="btn btn-primary">Salvar</button>
@@ -49,12 +77,12 @@
     <div class="content-header">
 		<div class="d-flex justify-content-between align-items-center mb-2">
 		<div >
-			<h1 class="m-0 text-dark">Categorias de produtos</h1>
+			<h1 class="m-0 text-dark">Produtos</h1>
 		</div><!-- /.col -->
 		<div>
 			<ol class="breadcrumb float-sm-right">
 				<li class="breadcrumb-item">
-					<button class="btn btn-primary" data-toggle="modal" data-target="#category" onclick="showModal()">Cadastrar</button>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#product" onclick="showModal()">Cadastrar</button>
 				</li>
 			</ol>
 		</div><!-- /.col -->
@@ -64,7 +92,7 @@
 			<div class="container-fluid">
 				<div id="loading">
 				</div>
-				<div id="categoriesList" class="row">
+				<div id="productsList" class="row">
 				</div>
 			</div>
 		</div>
@@ -77,11 +105,11 @@
 
 <script>
 
-let CATEGORIES = [];
+let PRODUCTS = [];
 
 $(document).ready(function() {
 
-	$("#categoryImage").change(function () {
+	$("#productImage").change(function () {
 		filePreview(this);
 	});
 
@@ -102,7 +130,7 @@ $(document).ready(function() {
             processData: false,
         }).done(function(res) {
 
-            getCategories();
+            getProducts();
 
         }).fail(function(err) {
             const errors = err.responseJSON;
@@ -110,7 +138,9 @@ $(document).ready(function() {
             for(error in errors) {
                 const input = $(`input[name="${error}"]`);
 
-				const textarea = $(`textarea[name="${error}"]`);
+                const textarea = $(`textarea[name="${error}"]`);
+                
+                const select = $(`select[name=${error}`);
 
                 if(input) {
                     input.addClass('is-invalid');
@@ -118,13 +148,17 @@ $(document).ready(function() {
 				
 				if(textarea) {
 					textarea.addClass('is-invalid');
+                }
+                
+                if(select) {
+					select.addClass('is-invalid');
 				}
             }
         });
     });
 
 
-	getCategories();
+	getProducts();
 });
 
 function filePreview(input) {
@@ -140,31 +174,31 @@ function filePreview(input) {
     }
 }
 
-function getCategories() {
+function getProducts() {
 
-	const container = jQuery('#categoriesList');
+	const container = jQuery('#productsList');
 
 	$.ajax({
 		method: "GET",
-		url: `${URL}/categorias`
+		url: `${URL}/produtos`
 	}).done(function(res) {
 
-		const { categories } = res;
+		const { products } = res;
 
 		$('#loading').hide();
 
-		if(categories.length >= 1) {
+		if(products.length >= 1) {
 
-			CATEGORIES = categories;
+			PRODUCTS = products;
 
-			drawCategories(categories, container);
+			drawProducts(products, container);
 		} else {
 
 			container.empty();
 
 			const msg = jQuery('<h3 />', {
 				class: 'warning-msg',
-				text: 'Nenhuma categoria cadastrada.'
+				text: 'Nenhuma produto cadastrado.'
 			}).appendTo(container);
 
 		} 
@@ -175,10 +209,10 @@ function getCategories() {
 
 }
 
-function drawCategories(categories, container) {
+function drawProducts(products, container) {
 
 	container.empty();
-	categories.forEach(category => {
+	products.forEach(product => {
 
 		const containerItem = jQuery('<div />', {
 			class: ' col-lg-3',
@@ -193,12 +227,12 @@ function drawCategories(categories, container) {
 			class: 'img-container'
 		}).appendTo(item);
 
-		const imageURL = `${URL}/${category.image}`;
+		const imageURL = `${URL}/${product.image}`;
 
 		const img = jQuery('<img />', {
 			class: 'img-fluid',
 			src: imageURL,
-			alt: category.description
+			alt: product.name
 		}).appendTo(imgContainer);
 
 		const informations = jQuery('<div />', {
@@ -212,34 +246,34 @@ function drawCategories(categories, container) {
 
 		const valueName = jQuery('<span />', {
 			class: 'value',
-			text: category.description
+			text: product.name
 		}).appendTo(informations);
 
 		const valueInfo = jQuery('<p />', {
 			class: 'value information',
-			text: category.information
+			text: product.description
 		}).appendTo(informations);
 
 		item.on('click', function() {
 
-			showModal(category)
-			$('#category').modal('show');
+			showModal(product)
+			$('#product').modal('show');
 		})
 	});
 }
 
-function showModal(category = undefined) {
+function showModal(product = undefined) {
 
 	$('#form').attr('method', 'POST');
-	$('#form').attr('action', `${URL}/categorias`);
+	$('#form').attr('action', `${URL}/produtos`);
 
 	$('input[name="_method"]').remove();
 
-	$('#form').trigger("reset");
+	// $('#form').trigger("reset");
 
 	$('.image-item').removeAttr('src');
 
-	if(category) {
+	if(product) {
 
 		const inputMethod = jQuery('<input />', {
 			name: '_method',
@@ -247,34 +281,37 @@ function showModal(category = undefined) {
 			value: 'PUT'
 		}).appendTo($('#form'));
 
-		$('#form').attr('action', `${URL}/categorias/${category.id}`);
+		$('#form').attr('action', `${URL}/produtos/${product.id}`);
 
-		for(data in category) {
+		for(data in product) {
 			
 			const input = $(`input[name=${data}`);
+            const textarea = $(`textarea[name=${data}`);
+
+            const select = $(`select[name=${data}`);
+
 
 			if(input) {
-				// input.val(category[data]);
-
-				if(data != 'image' && data != 'information')
-				{
-					input.val(category[data]);
-
-				} else if(data == 'information') {
-					const textarea = $(`textarea[name=${data}`);
-					
-					textarea.val(category[data]);
-				} else {
-					const imageURL = `${URL}/${category.image}`;
+                if(data == 'image') {
+					const imageURL = `${URL}/${product.image}`;
 
 					$('.image-item').attr('src', imageURL)
-				}
-			}
+                } else {
+                    input.val(product[data]);
+                }
+            }
 
+            if(textarea) {
+                textarea.val(product[data]);
+            }
+
+            if(select) {
+                select.val(product[data]);
+            }
 		}
 	}
 
-	$('#category').modal('show');
+	$('#product').modal('show');
 }
 
 </script>

@@ -62,6 +62,27 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/categorias', 'ProductCategoriesController@store');
 
-    Route::put('/categorias/{id}', 'ProductCategoriesController@update');;
+    Route::put('/categorias/{id}', 'ProductCategoriesController@update');
+
+    Route::get('/dashboard/produtos', function() {
+
+        $user = Auth::user();
+
+        $categories = $user->ProductCategories;
+
+        $data = array('categories' => $categories);
+
+        return view('products', $data);
+    });
+
+    Route::get('/produtos', 'ProductController@index');
+
+    Route::post('/produtos', 'ProductController@store');
+
+    Route::put('/produtos/{id}', 'ProductController@update');
+
+    Route::get('/form', function() {
+        return view('form');
+    });
 
 });

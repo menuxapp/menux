@@ -30,6 +30,7 @@ textarea:focus, input:focus, button:focus {
 
     background: #343a40 !important;
     color: #FFF;
+    border: 0px !important;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -172,8 +173,8 @@ textarea:focus, input:focus, button:focus {
     font-weight: 700;
 }
 
-/* MODAL CATEGORY */
-.category-image {
+/* MODAL */
+.image-item {
     display: block;
     width: 150px;
     height: 150px;
@@ -214,6 +215,7 @@ textarea:focus, input:focus, button:focus {
 }
 
 .img-container img {
+    width: 300px;
     height: 100%;
 }
 

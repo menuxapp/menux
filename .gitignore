@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/upload/categories/*
+/public/upload/products/*
 /storage/*.key
 /vendor
 .env

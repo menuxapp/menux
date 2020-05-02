@@ -38,12 +38,12 @@
 			<img src="{{ asset('/assets/logo.png') }}" alt="MenuX" width="130">
 		</div>
 		<div class="list-group list-group-flush">
-			@if ($user->Store)
+            @if ($user->Store)
 				<a href="{{ url('dashboard') }}" class="list-group-item list-group-item-action bg-light">
 					<i class="nav-icon fas fa-tachometer-alt"></i>
 					Dashboard
 				</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">
+				<a href="{{ url('/dashboard/produtos') }}" class="list-group-item list-group-item-action bg-light">
 					<i class="fas fa-th"></i>
 					Produtos
                 </a>
@@ -96,6 +96,8 @@
 <!-- Bootstrap core JavaScript -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 
+<script src="{{ asset('js/jquery.mask.min.js') }}"></script>
+
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
 <script src="{{ asset('/js/fontawesome.min.js') }}" rel="stylesheet"></script>
@@ -106,6 +108,9 @@
 const URL = "{{ url('') }}";
 
 window.onload = function() {
+
+    $(".money").mask('000.000.000.000.000,00', {reverse: true});
+
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
 		$("#wrapper").toggleClass("toggled");
