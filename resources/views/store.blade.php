@@ -3,7 +3,7 @@
 @section('container')
 
 @php
-    $urlForm = '/dashboard/estabelecimento';
+    $urlForm = '/estabelecimento';
     $method = 'POST';
 
     if($store->exists())
@@ -32,7 +32,7 @@
     <!-- /.content-header -->
     <div class="container-fluid">
     <div class="d-flex justify-content-center align-items-center">
-        {{ Form::open(array('url' => $urlForm, 'method' => $method)) }}
+        {{ Form::open(array('url' => $urlForm, 'method' => $method, 'id' => 'form')) }}
         <div class="col-lg-5 m-auto">
             <!-- general form elements disabled -->
             <div class="card card-info">
@@ -131,13 +131,25 @@ $(document).ready(function() {
 
         $.ajax({
             method: "POST",
-            url: `${window.location.href}`,
-            data: $(this).serialize()  
+            url: $(this).attr('action'),
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: new FormData(this),
+			contentType: false,
+            processData: false, 
         }).done(function(res) {
 
-            console.log(res)
+            showMessage('Estabelecimento salvo com sucesso!');
+
+            setInterval(function(){ location.reload(); }, 1000);
 
         }).fail(function(err) {
+
+            if(err.status == 401) {
+				showMessage('Falha ao salvar estabelecimento, verifique as informações, e tente novamente.', 'warning');
+			} else {
+				showMessage('Falha ao salvar estabelecimento, tente novamente mais tarde!', 'error');
+			}
+
             const errors = err.responseJSON;
 
             for(error in errors) {
@@ -170,7 +182,7 @@ function consultCEP(cep) {
         }
 
     }).fail(function(err) {
-        console.log(err);
+        showMessage('Falha ao consultar CEP!', 'error');
     });
 }
 

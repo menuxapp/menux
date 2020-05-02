@@ -102,9 +102,11 @@ $(document).ready(function() {
             processData: false,
         }).done(function(res) {
 
-            getCategories();
+			getCategories();
+			
+			showMessage('Categoria salva com sucesso!');
 
-        }).fail(function(err) {
+        }).fail(function(err) {		
             const errors = err.responseJSON;
 			            
             for(error in errors) {
@@ -170,7 +172,7 @@ function getCategories() {
 		} 
 
 	}).fail(function(err) {
-		console.log(err);
+		showMessage('Falha ao carregar as categorias de predutos, tente novamente mais tarde!', 'error');
 	});
 
 }

@@ -130,9 +130,18 @@ $(document).ready(function() {
             processData: false,
         }).done(function(res) {
 
+			showMessage('Produto salvo com sucesso!');
+
             getProducts();
 
         }).fail(function(err) {
+
+			if(err.status == 401) {
+				showMessage('Falha ao salvar produto, verifique as informações, e tente novamente.', 'warning');
+			} else {
+				showMessage('Falha ao salvar produto, tente novamente mais tarde!', 'error');
+			}
+
             const errors = err.responseJSON;
 			            
             for(error in errors) {
@@ -204,7 +213,7 @@ function getProducts() {
 		} 
 
 	}).fail(function(err) {
-		console.log(err);
+		showMessage('Falha ao carregar as produtos, tente novamente mais tarde!', 'error');
 	});
 
 }

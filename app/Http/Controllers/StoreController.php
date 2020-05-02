@@ -75,7 +75,7 @@ class StoreController extends Controller
 
             if($validator->fails())
             {
-                return response()->json($validator->errors(), 404);
+                return response()->json($validator->errors(), 401);
             }
 
             $store = Store::Create($request->except('_token'));
@@ -84,7 +84,7 @@ class StoreController extends Controller
 
             $user->save();
             
-            return redirect()->back();
+            return response()->json($store, 201);
         }
         catch (\Exception $e)
         {
@@ -160,7 +160,7 @@ class StoreController extends Controller
 
             if($validator->fails())
             {
-                return response()->json($validator->errors(), 404);
+                return response()->json($validator->errors(), 401);
             }
 
             $store = Store::updateOrCreate(
@@ -168,13 +168,14 @@ class StoreController extends Controller
                 $request->except('_token', '_method')
             );
             
-            return redirect()->back();
+            return response()->json($store, 200);
         }
         catch (\Exception $e)
         {
             Menux::logError(__FILE__, __LINE__, __METHOD__, $e);
 
             return response()->json('ERROR', 500);
+
         }
     }
 

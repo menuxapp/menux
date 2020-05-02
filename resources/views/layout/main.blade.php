@@ -19,6 +19,9 @@
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 
+
+    <link href="{{ asset('/css/toastr.min.css') }}" rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="{{ asset('/css/global.css') }}" rel="stylesheet">
 
@@ -102,6 +105,8 @@
 
 <script src="{{ asset('/js/fontawesome.min.js') }}" rel="stylesheet"></script>
 
+<script src="{{ asset('js/toastr.min.js') }}"></script>
+
 <!-- Menu Toggle Script -->
 <script>
 
@@ -130,6 +135,39 @@ function startLoading() {
             class: `spinner-grow ${spinner}`
         }).appendTo(loadingContainer);
     });
+}
+
+function showMessage(message, type = 'success') {
+    toastr.options = {  "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-full-width",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut" }
+
+    switch (type) {
+        case 'warning':
+            toastr.warning(message);
+            break;
+
+        case 'error':
+            toastr.error(message);
+            break;
+    
+        default:
+            toastr.success(message);
+            break;
+    }
+    
 }
 
 </script>

@@ -50,9 +50,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard/estabelecimento', 'StoreController@show');
 
-    Route::post('/dashboard/estabelecimento', 'StoreController@store');
+    Route::post('/estabelecimento', 'StoreController@store');
 
-    Route::put('/dashboard/estabelecimento/{id}', 'StoreController@update');
+    Route::put('/estabelecimento/{id}', 'StoreController@update');
 
     Route::get('/dashboard/categorias', function() {
         return view('productCategories');
