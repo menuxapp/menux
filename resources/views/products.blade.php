@@ -278,7 +278,7 @@ function showModal(product = undefined) {
 
 	$('input[name="_method"]').remove();
 
-	// $('#form').trigger("reset");
+	$('#form').trigger("reset");
 
 	$('.image-item').removeAttr('src');
 
@@ -305,7 +305,9 @@ function showModal(product = undefined) {
 					const imageURL = `${URL}/${product.image}`;
 
 					$('.image-item').attr('src', imageURL)
-                } else {
+                } else if (data == 'value') {
+					input.val(product[data].toString().replace('.', ','));
+				} else {
                     input.val(product[data]);
                 }
             }

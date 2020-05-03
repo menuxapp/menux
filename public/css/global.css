@@ -201,6 +201,7 @@ textarea:focus, input:focus, button:focus {
     height: 180px;
     border-radius: 20px;
 
+    margin-bottom: 15px;
     padding-left: 0px;
 
     cursor: pointer;

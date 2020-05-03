@@ -186,11 +186,22 @@ class ProductController extends Controller
 
             $productImage = "$destinationPath/$filename";
         }
-        
-        
-        $product = Product::updateOrCreate(
+
+        $status = true;
+
+        if(!$request->input('status'))
+        {
+            $status = false;
+        }
+
+        $value = str_replace('.', '', $request->input('value'));
+
+        $value = str_replace(',', '.', $request->input('value'));
+
+        $category = Product::updateOrCreate(
             ['id' => $id],
-            $request->except('_token', '_method', 'image') + ['store_id' => $user->Store->id, 'image' => $productImage]
+            $request->except('_token', '_method', 'image', 'status', 'value') + 
+            ['image' => $productImage, 'status' => $status, 'value' => $value]
         );
 
         return response()->json($product, 200);
