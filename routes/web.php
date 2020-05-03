@@ -44,6 +44,12 @@ Route::get('/sair', function () {
     return redirect('/entrar');
 });
 
+Route::get('/produtos', 'ProductController@index');
+
+Route::get('/pedido/{id}', 'DeliveryController@create');
+
+Route::post('/pedido', 'DeliveryController@store');
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', 'DashboardController@dashboard');
@@ -74,8 +80,6 @@ Route::middleware('auth')->group(function () {
 
         return view('products', $data);
     });
-
-    Route::get('/produtos', 'ProductController@index');
 
     Route::post('/produtos', 'ProductController@store');
 

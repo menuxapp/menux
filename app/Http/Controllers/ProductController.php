@@ -8,6 +8,7 @@ use Auth;
 use App\Menux;
 use Validator;
 use App\Models\Product;
+use App\Models\ProductCategories;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -37,15 +38,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try
         {
-            $user = Auth::user();
+            if(Auth::check())
+            {
+                $user = Auth::user();
+    
+                $store = $user->Store;
+    
+                $products = $store->Product;
+            }
+            else
+            {
+                $category = ProductCategories::find($request->input('category'));
 
-            $store = $user->Store;
-
-            $products = $store->Product;
+                $products = $category->Products;
+            }
 
             return response()->json(array('products' => $products), 200);
         }
