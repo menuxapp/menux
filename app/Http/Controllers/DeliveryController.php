@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Store;
 use App\Models\Delivery;
 use App\Models\DeliveryItems;
@@ -16,7 +17,23 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+
+        $store = $user->Store;
+
+        $deliveryReceived = $store->Delivery()
+                                    ->where('status', '=', _RECEIVED_)
+                                    ->get();
+
+        $deliveryMaking = $store->Delivery()
+                                    ->where('status', '=', _MAKING_)
+                                    ->get();
+
+        $data = array('deliveryReceived' => $deliveryReceived,
+                        'deliveryMaking' => $deliveryMaking);
+
+        return response()->json(array('delivery' => $data), 200);
     }
 
     /**

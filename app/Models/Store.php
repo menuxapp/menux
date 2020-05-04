@@ -24,4 +24,9 @@ class Store extends Model
     {
         return $this->hasManyThrough('App\Models\Product', 'App\Models\ProductCategories', 'store_id', 'product_category', 'id');
     }
+
+    public function Delivery()
+    {
+        return $this->hasMany('App\Models\Delivery', 'store_id', 'id');
+    }
 }

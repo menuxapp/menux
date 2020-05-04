@@ -14,12 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if(Auth::check())
-    {
-        return redirect('dashboard');
-    }
-
-    return redirect('entrar');
+    return view('landingpage.index');
 });
 
 Route::get('/entrar', function () {

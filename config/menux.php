@@ -3,8 +3,9 @@
 return [
 
     'form_of_payment' => [
-        _CREDIT_CARD_ => 'cartão de crédito',
-        _DEBIT_CARD_ => 'cartão de dédito',
+        _MONEY_ => 'Dinheiro',
+        _CREDIT_CARD_ => 'Cartão de crédito',
+        _DEBIT_CARD_ => 'Cartão de dédito',
     ],
 
 ];
