@@ -23,6 +23,7 @@ class DeliveryController extends Controller
         $store = $user->Store;
 
         $deliveryReceived = $store->Delivery()
+                                    ->with('deliveryItems.Product')
                                     ->where('status', '=', _RECEIVED_)
                                     ->get();
 

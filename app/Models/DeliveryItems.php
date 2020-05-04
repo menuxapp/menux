@@ -11,4 +11,9 @@ class DeliveryItems extends Model
     protected $fillable = [
         'delivery_id', 'product_id', 'quantity',
     ];
+
+    public function Product()
+    {
+        return $this->hasOne('App\Models\Product', 'id', 'product_id');
+    }
 }

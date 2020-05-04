@@ -256,6 +256,21 @@
 			const formPayment = jQuery('<span />', {
 				text: FORM_PAYMENT[delivery.payment_method],
 			}).appendTo(containerFormPayment);
+
+			const products = delivery.delivery_items;
+			
+			const listItems = jQuery('<ul />', {
+				class: 'listItems'
+			}).appendTo(deliveryContainer);
+			
+			products.forEach(product => {
+				const item = jQuery('<li />', {
+					class: 'item',
+					html: `<span style="font-weight: bold; font-size: 18px">${product.quantity}x</span>
+							<span style="font-size: 20px"> &nbsp;--- ${product.product.name}</span>`
+				}).appendTo(listItems);
+
+			});
 		});
 	}
 </script>

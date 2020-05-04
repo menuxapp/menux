@@ -46,7 +46,7 @@
             @if ($user->Store)
 				<a href="{{ url('dashboard') }}" class="list-group-item list-group-item-action bg-light">
 					<i class="nav-icon fas fa-tachometer-alt"></i>
-					Dashboard
+					Painel de controle
 				</a>
 				<a href="{{ url('/dashboard/produtos') }}" class="list-group-item list-group-item-action bg-light">
 					<i class="fas fa-th"></i>
