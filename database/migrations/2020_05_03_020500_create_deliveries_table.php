@@ -15,6 +15,28 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('store_id')
+                    ->nullable();
+
+            $table->foreign('store_id')
+                        ->references('id')
+                        ->on('stores')
+                        ->onDelete('cascade');
+
+            $table->string('number_client')->nullable();
+
+            $table->integer('payment_method');
+
+            $table->float('value', 8, 2);
+            $table->float('amount_paid', 8, 2);
+
+            $table->string('address_cep')->nullable();
+
+            $table->string('address_number')->nullable();
+
+            $table->integer('status')->default(0);
+            
             $table->timestamps();
         });
     }

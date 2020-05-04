@@ -351,20 +351,24 @@
                 data: cart
             }).done(function(res) {
 
+                console.log(res);
+
                 $('.container').hide();
 
                 $('#cartModal').modal('hide');
 
                 $('.success').css('display', 'flex');
 
-                $(this).prop("disabled", false);
+                $('#checkOut').prop("disabled", false);
 
 
             }).fail(function(err) {
                 
                 showMessage('Falha ao enviar pedido, tente novamente mais tarde!', 'error');
 
-                $(this).prop("disabled", false);
+                $('#checkOut').prop("disabled", false);
+
+                $('#checkOut').html("Finalizar pedido");
             });
         });
 
@@ -624,6 +628,8 @@
 
         if(type == 'money') {
             cashPayment();
+
+            cart.cash = cart.value;
         } else {
             cardPayment();
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use App\Models\Delivery;
+use App\Models\DeliveryItems;
 use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
@@ -54,7 +55,48 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+
+        $amountPaid = null;
+
+        $products = $request->input('products');
+
+        $value = $request->input('value');
+
+        if($request->has('card'))
+        {
+            $formPayment = $request->input('card');
+
+            $amountPaid = $value;
+        }
+        else 
+        {
+            $formPayment = _MONEY_;
+
+            $amountPaid = str_replace(',', '.', $request->input('cash'));
+
+            if($amountPaid < $value)
+            {
+                //
+            }
+        }
+
+        $delivery = Delivery::create([
+            'store_id' => $request->input('store'),
+            'payment_method' => $formPayment,
+            'value' => $value,
+            'amount_paid' => $amountPaid
+        ]);
+
+        foreach ($products as $product)
+        {
+            $deliveryItem = DeliveryItems::create([
+                'delivery_id' => $delivery->id,
+                'product_id' => $product['id'],
+                'quantity' => $product['qtd'],
+            ]);
+        }
+
+        return $delivery;
     }
 
     /**
