@@ -25,13 +25,13 @@
 				<nav id="navigation" class="style-1">
 					<ul id="responsive">
 
-						<li><a href="index.php">Início</a></li>
+						<li><a href="#">Início</a></li>
 
-						<li><a href="#">Saiba Mais</a></li>
+						<li><a href="#know-more">Saiba Mais</a></li>
 
-						<li><a href="#">Dúvidas</a></li>
+						<li><a href="#questions">Dúvidas</a></li>
 
-						<li><a href="#">Contato</a></li>
+						<li><a href="#contact">Contato</a></li>
 						
 					</ul>
 				</nav>
@@ -44,8 +44,8 @@
 			<!-- Right Side Content / End -->
 			<div class="right-side">
 				<div class="header-widget">	
-				<a href="http://menux-app.umbler.net/entrar" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> Entrar</a>
-				<a href="http://menux-app.umbler.net/cadastrar" class="button border with-icon">Assinar <i class="sl sl-icon-plus"></i></a>;				
+				<a href="{{ url('/entrar') }}" class="sign-in"><i class="sl sl-icon-login"></i> Entrar</a>
+				<a href="{{ url('/cadastrar') }}" class="button border with-icon">Assinar <i class="sl sl-icon-plus"></i></a>;				
 
 				</div>
 			</div>

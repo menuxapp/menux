@@ -80,6 +80,8 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/produtos/{id}', 'ProductController@update');
 
+    Route::get('/pedido', 'DeliveryController@index');
+
     Route::get('/form', function() {
         return view('form');
     });

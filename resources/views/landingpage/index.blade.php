@@ -74,7 +74,7 @@
 
 
 <!-- Fullwidth Section -->
-<section class="fullwidth margin-top-65 padding-top-75 padding-bottom-70" data-background-color="#f8f8f8">
+<section id="know-more" class="fullwidth margin-top-65 padding-top-75 padding-bottom-70" data-background-color="#f8f8f8">
 
 	<div class="container">
 		<div class="row">
@@ -124,7 +124,7 @@
 
 
 <!-- Info Section -->
-<div class="container">
+<div id="questions" class="container">
 
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
